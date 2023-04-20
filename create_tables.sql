@@ -29,7 +29,7 @@ CREATE TABLE BORROWER(CARD_NO VARCHAR2(15),
 
 
 CREATE TABLE BOOK_HAVE_COPIES(BOOK_ID VARCHAR2(10),
-                                  AVAILIABLE_COPIES CHAR(1),
+                                  AVAILIABLE CHAR(1),
                                   ISBN10 VARCHAR2(15),
                                   BRANCH_ID VARCHAR2(10) NOT NULL,
                                   CONSTRAINT PK_BOOK_ID PRIMARY KEY (BOOK_ID)
@@ -40,9 +40,9 @@ CREATE TABLE BOOK_HAVE_COPIES(BOOK_ID VARCHAR2(10),
 CREATE TABLE BOOK_LOANS(LOAN_ID VARCHAR2(10), 
                                BOOK_ID VARCHAR2(20), 
                                CARD_NO VARCHAR2(20), 
-                               DATE_OUT VARCHAR2(15), 
-                               DATE_DUE VARCHAR2(15),
-                               DATE_IN VARCHAR2(15),
+                               DATE_OUT DATE, 
+                               DATE_DUE DATE,
+                               DATE_IN DATE,
                                CONSTRAINT PK_LOAN_ID PRIMARY KEY (LOAN_ID),
                                CONSTRAINT FK_BOOK_ID FOREIGN KEY (BOOK_ID) REFERENCES BOOKS_HAVE_COPIES(BOOK_ID),
                                CONSTRAINT FK_CARD_NO FOREIGN KEY (CARD_NO) REFERENCES BORROWER(CARD_NO));

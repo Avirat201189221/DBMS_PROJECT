@@ -15,6 +15,11 @@ BEGIN
     RETURN 'Loan record does not exist or book has already been returned.';
   END IF;
 
+-- UPDATE FINE IF IT EXISTS
+  UPDATE FINES
+  SET FINE_AMT= ((DATE_IN)-(DATE_DUE))*5
+  WHERE LOAN_ID=p_loan_id and PAID = 'N';
+
   -- Calculate FINE IF IT EXISTS
   SELECT SUM(FINE_AMT)
   INTO l_fine_amt
@@ -27,7 +32,7 @@ BEGIN
   SET DATE_IN= p_return_date
   WHERE LOAN_ID = p_loan_id;
 
-  UPDATE Copies
+  UPDATE BOOKS_HAVE_COPIES
   SET Available = 'Y'
   WHERE BOOK_ID = (
     SELECT BOOK_ID
